@@ -1,0 +1,51 @@
+---
+- name: install and configure nginx webserver
+  hosts:
+    - ubuntu1
+    - centos1
+  become: yes
+  tasks:
+  
+    - name: enable extra packages for EL
+      yum:
+        name: epel-release
+        state: present
+      when: ansible_distribution == 'CentOS'
+      tags:
+        - install
+  
+    - name: install nginx
+      package:
+        name: nginx
+        state: present
+      tags:
+        - install
+        
+    - name: disable autostart
+      service:
+        name: nginx
+        enabled: no
+      tags:
+        - disable
+        
+    - name: stop nginx
+      service:
+        name: nginx
+        state: stopped
+      tags:
+        - stop
+        
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+      tags:
+        - start
+        
+    - name: enable autostart
+      service:
+        name: nginx
+        enabled: yes
+      tags:
+        - enable
+

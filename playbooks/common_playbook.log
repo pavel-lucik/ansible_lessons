@@ -1,0 +1,63 @@
+pavlo@pavlo-Satellite-M60:~/.ansible/playbooks$ ansible all -m ping
+centos1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+ubuntu1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+
+
+pavlo@pavlo-Satellite-M60:~/.ansible/playbooks$ ansible-playbook common.yaml
+PLAY [install and uninstall some of the common archive tools] **************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [uninstall] ***********************************************************************************************************************************************************************************************
+ok: [ubuntu1] => (item=unzip)
+ok: [centos1] => (item=unzip)
+ok: [centos1] => (item=nano)
+changed: [ubuntu1] => (item=nano)
+
+TASK [install] *************************************************************************************************************************************************************************************************
+changed: [ubuntu1] => (item=zip)
+ok: [ubuntu1] => (item=unzip)
+ok: [ubuntu1] => (item=gzip)
+changed: [centos1] => (item=zip)
+changed: [centos1] => (item=unzip)
+changed: [ubuntu1] => (item=nano)
+ok: [centos1] => (item=gzip)
+changed: [centos1] => (item=nano)
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************
+centos1                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ubuntu1                    : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+
+pavlo@pavlo-Satellite-M60:~/.ansible/playbooks$ ansible-playbook common.yaml --tags "uninstall"
+PLAY [install and uninstall some of the common archive tools] **************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [uninstall] ***********************************************************************************************************************************************************************************************
+changed: [centos1] => (item=unzip)
+changed: [ubuntu1] => (item=unzip)
+changed: [centos1] => (item=nano)
+changed: [ubuntu1] => (item=nano)
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************
+centos1                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ubuntu1                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
