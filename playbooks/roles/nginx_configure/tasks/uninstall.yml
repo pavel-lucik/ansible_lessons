@@ -1,0 +1,19 @@
+---
+- include: stop.yml
+
+- name: Uninstall NGINX
+  become: yes
+  yum:
+    name: nginx
+    state: absent
+    update_cache: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Uninstall NGINX
+  become: yes
+  apt:
+    name: nginx
+    state: absent
+    update_cache: yes
+    force_apt_get: yes
+  when: ansible_os_family == 'Debian'

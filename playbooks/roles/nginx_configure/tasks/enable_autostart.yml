@@ -1,0 +1,11 @@
+---
+- name: Check if NGINX is installed
+  package_facts:
+    manager: "auto"
+
+- name: Enable NGINX autostart
+  become: yes
+  service:
+    name: nginx
+    enabled: yes
+  when: "'nginx' in ansible_facts.packages"

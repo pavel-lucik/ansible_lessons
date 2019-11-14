@@ -1,0 +1,21 @@
+---
+- name: uninstall common archive tools
+  become: yes
+  apt:
+   name: "{{ item }}"
+   state: absent
+   update_cache: yes
+   force_apt_get: yes
+  loop:
+    "{{ uninstall_list }}"
+  when: ansible_os_family == 'Debian'
+
+- name: uninstall common archive tools
+  become: yes
+  yum:
+   name: "{{ item }}"
+   state: absent
+   update_cache: yes
+  loop:
+    "{{ uninstall_list }}"
+  when: ansible_os_family == 'RedHat'

@@ -1,0 +1,21 @@
+---
+- name: install common archive tools
+  become: yes
+  apt:
+   name: "{{ item }}"
+   state: present
+   update_cache: yes
+   force_apt_get: yes
+  loop:
+    "{{ install_list }}"
+  when: ansible_os_family == 'Debian'
+
+- name: install common archive tools
+  become: yes
+  yum:
+   name: "{{ item }}"
+   state: present
+   update_cache: yes
+  loop:
+    "{{ install_list }}"
+  when: ansible_os_family == 'RedHat'

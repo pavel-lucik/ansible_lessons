@@ -1,0 +1,25 @@
+---
+- name: Enable extra packages for EL
+  become: yes
+  yum:
+    name: epel-release
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Install NGINX with yum
+  become: yes
+  yum:
+    name: nginx
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Install NGINX with apt
+  become: yes
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+    force_apt_get: yes
+  when: ansible_os_family == 'Debian'

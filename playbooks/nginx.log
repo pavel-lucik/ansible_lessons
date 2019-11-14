@@ -1,0 +1,157 @@
+pasha@pasha-desktop:~/ansible_homework/playbooks$ cat nginx.log 
+
+pasha@pasha-desktop:~/ansible_homework/playbooks$ date
+четвер, 14 листопада 2019 12:58:24 +0200
+pasha@pasha-desktop:~/ansible_homework/playbooks$ ansible-playbook nginx.yml --tags="nginx_install, nginx_enable, archive_install"
+
+PLAY [install/uninstall/configure NGINX webserver, install/uninstall common archive tools] *************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Enable extra packages for EL] **************************************************************************************
+skipping: [ubuntu1]
+changed: [centos1]
+
+TASK [nginx_configure : Install NGINX with yum] ********************************************************************************************
+skipping: [ubuntu1]
+changed: [centos1]
+
+TASK [nginx_configure : Install NGINX with apt] ********************************************************************************************
+skipping: [centos1]
+changed: [ubuntu1]
+
+TASK [nginx_configure : Check if NGINX is installed] ***************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Enable NGINX autostart] ********************************************************************************************
+ok: [ubuntu1]
+changed: [centos1]
+
+TASK [common_archive_tools : install common archive tools] *********************************************************************************
+skipping: [centos1] => (item=zip) 
+skipping: [centos1] => (item=unzip) 
+skipping: [centos1] => (item=gzip) 
+skipping: [centos1] => (item=nano) 
+changed: [ubuntu1] => (item=zip)
+ok: [ubuntu1] => (item=unzip)
+ok: [ubuntu1] => (item=gzip)
+ok: [ubuntu1] => (item=nano)
+
+TASK [common_archive_tools : install common archive tools] *********************************************************************************
+skipping: [ubuntu1] => (item=zip) 
+skipping: [ubuntu1] => (item=unzip) 
+skipping: [ubuntu1] => (item=gzip) 
+skipping: [ubuntu1] => (item=nano) 
+changed: [centos1] => (item=zip)
+changed: [centos1] => (item=unzip)
+ok: [centos1] => (item=gzip)
+changed: [centos1] => (item=nano)
+
+PLAY RECAP *********************************************************************************************************************************
+centos1                    : ok=6    changed=4    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+ubuntu1                    : ok=5    changed=2    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+
+pasha@pasha-desktop:~/ansible_homework/playbooks$ ansible-playbook nginx.yml --tags="nginx_uninstall, archive_uninstall"
+
+PLAY [install/uninstall/configure NGINX webserver, install/uninstall common archive tools] *************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Check if NGINX is installed] ***************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Stop NGINX] ********************************************************************************************************
+ok: [centos1]
+changed: [ubuntu1]
+
+TASK [nginx_configure : Uninstall NGINX] ***************************************************************************************************
+skipping: [ubuntu1]
+changed: [centos1]
+
+TASK [nginx_configure : Uninstall NGINX] ***************************************************************************************************
+skipping: [centos1]
+changed: [ubuntu1]
+
+TASK [common_archive_tools : uninstall common archive tools] *******************************************************************************
+skipping: [centos1] => (item=zip) 
+skipping: [centos1] => (item=unzip) 
+changed: [ubuntu1] => (item=zip)
+changed: [ubuntu1] => (item=unzip)
+
+TASK [common_archive_tools : uninstall common archive tools] *******************************************************************************
+skipping: [ubuntu1] => (item=zip) 
+skipping: [ubuntu1] => (item=unzip) 
+changed: [centos1] => (item=zip)
+changed: [centos1] => (item=unzip)
+
+PLAY RECAP *********************************************************************************************************************************
+centos1                    : ok=5    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+ubuntu1                    : ok=5    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+pasha@pasha-desktop:~/ansible_homework/playbooks$ ansible-playbook nginx.yml --tags="nginx_install, nginx_disable, nginx_stop, archive_install"
+
+PLAY [install/uninstall/configure NGINX webserver, install/uninstall common archive tools] *************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Enable extra packages for EL] **************************************************************************************
+skipping: [ubuntu1]
+ok: [centos1]
+
+TASK [nginx_configure : Install NGINX with yum] ********************************************************************************************
+skipping: [ubuntu1]
+changed: [centos1]
+
+TASK [nginx_configure : Install NGINX with apt] ********************************************************************************************
+skipping: [centos1]
+changed: [ubuntu1]
+
+TASK [nginx_configure : Check if NGINX is installed] ***************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Stop NGINX] ********************************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Check if NGINX is installed] ***************************************************************************************
+ok: [centos1]
+ok: [ubuntu1]
+
+TASK [nginx_configure : Disable NGINX autostart] *******************************************************************************************
+ok: [centos1]
+changed: [ubuntu1]
+
+TASK [common_archive_tools : install common archive tools] *********************************************************************************
+skipping: [centos1] => (item=zip) 
+skipping: [centos1] => (item=unzip) 
+skipping: [centos1] => (item=gzip) 
+skipping: [centos1] => (item=nano) 
+changed: [ubuntu1] => (item=zip)
+ok: [ubuntu1] => (item=unzip)
+ok: [ubuntu1] => (item=gzip)
+ok: [ubuntu1] => (item=nano)
+
+TASK [common_archive_tools : install common archive tools] *********************************************************************************
+skipping: [ubuntu1] => (item=zip) 
+skipping: [ubuntu1] => (item=unzip) 
+skipping: [ubuntu1] => (item=gzip) 
+skipping: [ubuntu1] => (item=nano) 
+changed: [centos1] => (item=zip)
+changed: [centos1] => (item=unzip)
+ok: [centos1] => (item=gzip)
+ok: [centos1] => (item=nano)
+
+PLAY RECAP *********************************************************************************************************************************
+centos1                    : ok=8    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+ubuntu1                    : ok=7    changed=3    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+
+pasha@pasha-desktop:~/ansible_homework/playbooks$ pasha@pasha-desktop:~/ansible_homework/playbooks$ 

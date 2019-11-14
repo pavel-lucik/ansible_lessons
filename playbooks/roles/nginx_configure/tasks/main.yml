@@ -1,0 +1,30 @@
+---
+- include: install.yml
+  tags:
+    - never
+    - nginx_install
+
+- include: uninstall.yml
+  tags:
+    - never
+    - nginx_uninstall
+
+- include: start.yml
+  tags:
+    - never
+    - nginx_start
+
+- include: stop.yml
+  tags:
+    - never
+    - nginx_stop
+
+- include: disable_autostart.yml
+  tags:
+    - never
+    - nginx_disable
+
+- include: enable_autostart.yml
+  tags:
+    - never
+    - nginx_enable

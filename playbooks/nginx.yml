@@ -1,0 +1,8 @@
+---
+- name: install/uninstall/configure NGINX webserver, install/uninstall common archive tools
+  hosts:
+    - ubuntu1
+    - centos1
+  roles:
+    - nginx_configure
+    - common_archive_tools

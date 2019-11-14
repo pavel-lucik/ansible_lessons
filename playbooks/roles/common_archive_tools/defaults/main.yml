@@ -1,0 +1,11 @@
+---
+# defaults file for common_archive_tools
+uninstall_list:
+  - zip
+  - unzip
+
+install_list:
+  - zip
+  - unzip
+  - gzip
+  - nano
